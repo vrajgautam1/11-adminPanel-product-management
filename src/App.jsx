@@ -3,6 +3,8 @@ import Sidebar from "./components/Sidebar"
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './components/Home'
+import Form from "./components/Form"
+import Table from "./components/Table"
 import {Route, Routes} from 'react-router-dom'
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
 
     <Routes>
       <Route path="/" element={<Home/>} />
+      <Route path="/form" element={<Form/>}/>
+      <Route path="/table" element={<Table/>}/>
     </Routes>
     
     <Footer/>
