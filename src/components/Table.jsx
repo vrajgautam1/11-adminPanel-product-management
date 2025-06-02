@@ -1,454 +1,198 @@
-import React from 'react'
+import React from "react";
+import "../assets/script";
+import { useNavigate } from "react-router-dom";
 
-function Table() {
+
+function Table({ product, setProduct, productList, setProductList, editableProduct, setEditableProduct }) {
+  let navigate = useNavigate()
+  function handleDelete(id){
+      console.log(id)
+      let updatedProductList = productList.filter((p)=>p.id != id)
+      setProductList(updatedProductList)
+  }
+
+  function handleEdit(id){
+    let productToEdit = productList.find((p)=>p.id === id)
+    setEditableProduct(productToEdit)
+    navigate("/form")
+  }
+
+
   return (
     <div>
-      <div className="container">
-  <div className="page-inner">
-    <div className="page-header">
-      <h3 className="fw-bold mb-3">Tables</h3>
-      <ul className="breadcrumbs mb-3">
-        <li className="nav-home">
-          <a href="#">
-            <i className="icon-home" />
-          </a>
-        </li>
-        <li className="separator">
-          <i className="icon-arrow-right" />
-        </li>
-        <li className="nav-item">
-          <a href="#">Tables</a>
-        </li>
-        <li className="separator">
-          <i className="icon-arrow-right" />
-        </li>
-        <li className="nav-item">
-          <a href="#">Basic Tables</a>
-        </li>
-      </ul>
-    </div>
-    <div className="row">
-      <div className="col-md-6">
+      <div className="col-md-12">
         <div className="card">
           <div className="card-header">
-            <div className="card-title">Basic Table</div>
-          </div>
-          <div className="card-body">
-            <div className="card-sub">
-              This is the basic table view of the ready dashboard :
+            <div className="d-flex align-items-center">
+              <h4 className="card-title">Add Row</h4>
+              <button
+                className="btn btn-primary btn-round ms-auto"
+                data-bs-toggle="modal"
+                data-bs-target="#addRowModal"
+              >
+                <i className="fa fa-plus" />
+                Add Row
+              </button>
             </div>
-            <table className="table mt-3">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td colSpan={2}>Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
           </div>
-        </div>
-        <div className="card">
-          <div className="card-header">
-            <div className="card-title">Striped Rows</div>
-          </div>
+
           <div className="card-body">
-            <div className="card-sub">
-              Add
-              <code className="highlighter-rouge">.table-striped</code> to
-              rows the striped table
-            </div>
-            <table className="table table-striped mt-3">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td colSpan={2}>Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
-            <div className="card-sub">
-              Add
-              <code className="#highlighter-rouge">.table-striped-bg-*states</code>
-              to change background from striped rows
-            </div>
-            <table className="table table-striped table-striped-bg-black mt-3">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td colSpan={2}>Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
-            <table className="table table-striped table-striped-bg-danger mt-4">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td colSpan={2}>Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className="card">
-          <div className="card-header">
-            <div className="card-title">Responsive Table</div>
-          </div>
-          <div className="card-body">
-            <div className="card-sub">
-              Create responsive tables by wrapping any table with
-              <code className="highlighter-rouge">.table-responsive</code>
-              <code className="highlighter-rouge">DIV</code> to make them
-              scroll horizontally on small devices
+            {/* Modal */}
+            <div
+              className="modal fade"
+              id="addRowModal"
+              tabIndex={-1}
+              role="dialog"
+              aria-hidden="true"
+            >
+              <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                  <div className="modal-header border-0">
+                    <h5 className="modal-title">
+                      <span className="fw-mediumbold"> New</span>
+                      <span className="fw-light"> Row </span>
+                    </h5>
+                    <button
+                      type="button"
+                      className="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                  <div className="modal-body">
+                    <p className="small">
+                      Create a new row using this form, make sure you fill them
+                      all
+                    </p>
+                    <form>
+                      <div className="row">
+                        <div className="col-sm-12">
+                          <div className="form-group form-group-default">
+                            <label>Name</label>
+                            <input
+                              id="addName"
+                              type="text"
+                              className="form-control"
+                              placeholder="fill name"
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6 pe-0">
+                          <div className="form-group form-group-default">
+                            <label>Position</label>
+                            <input
+                              id="addPosition"
+                              type="text"
+                              className="form-control"
+                              placeholder="fill position"
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-6">
+                          <div className="form-group form-group-default">
+                            <label>Office</label>
+                            <input
+                              id="addOffice"
+                              type="text"
+                              className="form-control"
+                              placeholder="fill office"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div className="modal-footer border-0">
+                    <button
+                      type="button"
+                      id="addRowButton"
+                      className="btn btn-primary"
+                    >
+                      Add
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      data-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="table-responsive">
-              <table className="table table-bordered">
+              <table
+                id="add-row"
+                className="display table table-striped table-hover table-responsive"
+              >
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Table heading</th>
-                    <th>Table heading</th>
-                    <th>Table heading</th>
-                    <th>Table heading</th>
-                    <th>Table heading</th>
-                    <th>Table heading</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>SKU</th>
+                    <th>image</th>
+                    <th>Description</th>
+                    <th>Warehouse</th>
+                    <th style={{ width: "10%" }}>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                  </tr>
+                  {productList.map((prod, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{index+1}</td>
+                        <td>{prod.productName}</td>
+                        <td>{prod.quantity}</td>
+                        <td>{prod.sku}</td>
+                        <td>
+                          <img src={prod.image?.url || ""} alt={prod.image?.url || ""} width="25"/>
+                        </td>
+                        <td>{prod.description}</td>
+                        <td>
+                          <ul>
+                            {prod.warehouse? prod.warehouse.map((wh)=>{
+                              return(
+                                <li>{wh}</li>
+                              )
+                            }) : ""}
+                          </ul>
+
+                        </td>
+                        <td>
+                          <div className="form-button-action">
+                            <button
+                              type="button"
+                              className="btn btn-link btn-primary btn-lg"
+                              data-original-title="Edit Task"
+                              onClick={()=>handleEdit(prod.id)}
+                            >
+                              <i className="fa fa-edit" />
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-link btn-danger"
+                              data-original-title="Remove"
+                              onClick={()=>handleDelete(prod.id)}
+                            >
+                              <i className="fa fa-times" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-      <div className="col-md-6">
-        <div className="card">
-          <div className="card-header">
-            <div className="card-title">Hoverable Table</div>
-          </div>
-          <div className="card-body">
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td colSpan={2}>Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className="card">
-          <div className="card-header">
-            <div className="card-title">Bordered Table</div>
-          </div>
-          <div className="card-body">
-            <div className="card-sub">
-              Add
-              <code className="highlighter-rouge">.table-bordered</code> to
-              create a bordered table
-            </div>
-            <table className="table table-bordered">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td colSpan={2}>Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
-            <div className="card-sub">
-              You can also add
-              <code className="highlighter-rouge">.table-bordered-bd-*states</code>
-              to change the border color of the table
-            </div>
-            <table className="table table-bordered table-bordered-bd-warning mt-4">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td colSpan={2}>Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
-            <div className="card-sub">
-              It can also add
-              <code className="highlight-rouge">.table-head-bg-*states</code>
-              so that the table header has the same color as the border
-              color of the table
-            </div>
-            <table className="table table-bordered table-head-bg-info table-bordered-bd-info mt-4">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td colSpan={2}>Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className="card">
-          <div className="card-header">
-            <div className="card-title">Table Head States</div>
-          </div>
-          <div className="card-body">
-            <table className="table table-head-bg-success">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td colSpan={2}>Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
-            <table className="table table-head-bg-primary mt-4">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td colSpan={2}>Larry the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
-
-    </div>
-  )
+  );
 }
 
-export default Table
+export default Table;
