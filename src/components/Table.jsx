@@ -1,22 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../assets/script";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
+function Table({
+  product,
+  setProduct,
+  productList,
+  setProductList,
+  editableProduct,
+  setEditableProduct,
+}) {
+  let navigate = useNavigate();
+  const url = "http://localhost:3000/products";
+  
+  async function handleDelete(id) {
+    //-1 this line deletes the entry from the database not the state. 
+    await axios.delete(url+`/${id}`)
 
-function Table({ product, setProduct, productList, setProductList, editableProduct, setEditableProduct }) {
-  let navigate = useNavigate()
-  function handleDelete(id){
-      console.log(id)
-      let updatedProductList = productList.filter((p)=>p.id != id)
-      setProductList(updatedProductList)
+    //-2 this line deletes the entry from the state so that we can see things instantly.  
+    let updatedProductList = productList.filter((p) => p.id != id);
+    setProductList(updatedProductList);
   }
 
-  function handleEdit(id){
-    let productToEdit = productList.find((p)=>p.id === id)
-    setEditableProduct(productToEdit)
-    navigate("/form")
+  function handleEdit(id) {
+    let productToEdit = productList.find((p) => p.id === id);
+    setEditableProduct(productToEdit);
+    navigate("/form");
   }
 
+  useEffect(() => {
+    async function getData() {
+      try {
+        let res = await axios.get(url);
+        let data = res.data;
+        setProductList(data);
+      } catch (error) {
+        console.log(error.message);
+        setProductList([]);
+      }
+    } 
+    getData();
+  }, []);
 
   return (
     <div>
@@ -144,23 +169,26 @@ function Table({ product, setProduct, productList, setProductList, editableProdu
                   {productList.map((prod, index) => {
                     return (
                       <tr key={index}>
-                        <td>{index+1}</td>
+                        <td>{index + 1}</td>
                         <td>{prod.productName}</td>
                         <td>{prod.quantity}</td>
                         <td>{prod.sku}</td>
                         <td>
-                          <img src={prod.image?.url || ""} alt={prod.image?.url || ""} width="25"/>
+                          <img
+                            src={prod.image?.url || ""}
+                            alt={prod.image?.url || ""}
+                            width="25"
+                          />
                         </td>
                         <td>{prod.description}</td>
                         <td>
                           <ul>
-                            {prod.warehouse? prod.warehouse.map((wh)=>{
-                              return(
-                                <li>{wh}</li>
-                              )
-                            }) : ""}
+                            {prod.warehouse
+                              ? prod.warehouse.map((wh) => {
+                                  return <li>{wh}</li>;
+                                })
+                              : ""}
                           </ul>
-
                         </td>
                         <td>
                           <div className="form-button-action">
@@ -168,7 +196,7 @@ function Table({ product, setProduct, productList, setProductList, editableProdu
                               type="button"
                               className="btn btn-link btn-primary btn-lg"
                               data-original-title="Edit Task"
-                              onClick={()=>handleEdit(prod.id)}
+                              onClick={() => handleEdit(prod.id)}
                             >
                               <i className="fa fa-edit" />
                             </button>
@@ -176,7 +204,7 @@ function Table({ product, setProduct, productList, setProductList, editableProdu
                               type="button"
                               className="btn btn-link btn-danger"
                               data-original-title="Remove"
-                              onClick={()=>handleDelete(prod.id)}
+                              onClick={() => handleDelete(prod.id)}
                             >
                               <i className="fa fa-times" />
                             </button>

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +14,7 @@ function Form({
   setError,
 }) {
   let navigate = useNavigate();
-
+  const url = "http://localhost:3000/products";
   function handleChange(e) {
     let { name, value, checked, files } = e.target;
 
@@ -50,10 +51,10 @@ function Form({
     }
   }
 
-  useEffect(() => {
-    let newArray = Array.isArray(productList) ? [...productList] : [];
-    localStorage.setItem("productList", JSON.stringify(newArray));
-  }, [productList]);
+  // useEffect(() => {
+  //   let newArray = Array.isArray(productList) ? [...productList] : [];
+  //   localStorage.setItem("productList", JSON.stringify(newArray));
+  // }, [productList]);
 
   useEffect(() => {
     if (editableProduct) {
@@ -68,7 +69,6 @@ function Form({
     if (!product.quantity) errors.quantity = "quantity is needed";
     if (!product.sku) errors.sku = "sku is needed";
     if (!product.image) errors.image = "image is needed";
-    if (!product.image) errors.image = "image is needed";
     if (!product.description) errors.description = "description is needed";
     if (!product.warehouse) errors.warehouse = "warehouse is needed";
     setError(errors);
@@ -76,37 +76,23 @@ function Form({
     return Object.keys(errors).length === 0;
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (!validator()) return;
 
-    try {
-      if (editableProduct) {
-        try {
-          let updatedList = productList.map((p) => {
-            if (p.id === editableProduct.id) {
-              return product;
-            }
-            return p;
-          });
-          setProductList(updatedList);
-          setProduct({});
-        } catch (error) {
-          console.log(error);
-        }
-      } else {
-        const newProduct = { ...product, id: Date.now() };
-        setProductList([...productList, newProduct]);
-        if (imgRef.current) {
-          imgRef.current.value = "";
-        }
-        setProduct({});
-      }
-    } catch (error) {
-      console.log(error.message);
+    if (editableProduct && editableProduct.id) {
+      await axios.put(url+`/${editableProduct.id}`, product)
+      //we can safely avoid modifying the productList State because we are going to a new page.
+      //if 
+    } else {
+      let newProduct = { ...product, id: Date.now() };
+      await axios.post(url, product);
     }
 
+    setEditableProduct({});
+    setProduct({});
+    if (imgRef.current) imgRef.current.value = "";
     navigate("/table");
   }
 

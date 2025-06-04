@@ -1,12 +1,36 @@
-# React + Vite
+# React Product CRUD with AXIOS & HTML Templates
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project demonstrates practical use of a **readymade Bootstrap HTML template** integrated into **React**. It features full **CRUD operations** using `axios` with a `json-server` backend.
 
-Currently, two official plugins are available:
+## 🚀 Tech Highlights
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ✅ Integrated HTML template into React
+- ✅ Used `axios` to perform Create, Read, Update, Delete operations
+- ✅ Dynamic form with image upload and checkbox support
+- ✅ Input validation using state-based error handling
+- ✅ REST API simulation using `json-server`
 
-## Expanding the ESLint configuration
+## ⚙️ Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- Axios
+- JSON Server
+- Bootstrap Template
+- React Router (for navigation)
+- localStorage (initially used for testing)
+
+## 🔍 Skills Demonstrated
+
+- Integrating static templates into React
+- Handling form data and images
+- Testing APIs in React using `axios`
+- Managing frontend and simulated backend interaction
+- REST API CRUD flow in a React project
+
+## 📸 Screenshot
+
+![Product Form Screenshot](./screenshot.png)
+
+## 🔗 Live Link
+
+[Live Demo](https://your-live-demo-link.com)

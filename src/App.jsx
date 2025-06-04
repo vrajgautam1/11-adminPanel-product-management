@@ -6,26 +6,15 @@ import Home from "./components/Home";
 import Form from "./components/Form";
 import Table from "./components/Table";
 import { Route, Routes } from "react-router-dom";
+import axios from "axios";
 
 function App() {
+  const url = "http://localhost:3000/products";
   const [product, setProduct] = useState({});
   const [editableProduct, setEditableProduct] = useState({});
-  const [error, setError] = useState({})
-  const [productList, setProductList] = useState(() => {
-    let product = JSON.parse(localStorage.getItem("productList"));
-
-    if (product) {
-      return product;
-    } else {
-      return [];
-    }
-  });
+  const [error, setError] = useState({});
+  const [productList, setProductList] = useState([]);
   const imgRef = useRef();
-
-  useEffect(() => {
-    let newArray = Array.isArray(productList) ? [...productList] : [];
-    localStorage.setItem("productList", JSON.stringify(newArray));
-  }, [productList]);
 
   return (
     <>
@@ -47,10 +36,10 @@ function App() {
                   product={product}
                   setProduct={setProduct}
                   imgRef={imgRef}
-                  setEditableProduct = {setEditableProduct}
-                  editableProduct = {editableProduct}
-                  error = {error}
-                  setError = {setError}
+                  setEditableProduct={setEditableProduct}
+                  editableProduct={editableProduct}
+                  error={error}
+                  setError={setError}
                 />
               }
             />
